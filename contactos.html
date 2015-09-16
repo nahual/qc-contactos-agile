@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Contactos</title>
+
+    <!-- Le HTML5 shim, for IE6-8 support of HTML elements -->
+    <!--[if lt IE 9]>
+      <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+    <!-- Le styles -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <style type="text/css">
+      body {
+        padding-top: 60px;
+        padding-bottom: 40px;
+      }
+      #contacts-table tbody.empty:after {
+        content: "No hay contactos guardados";
+      }
+      
+      a.active_sort {
+        color: red;
+      }
+      #version {
+        font-size:0.8em;
+        color: gray;
+      }
+    </style>
+    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
+  </head>
+
+  <body>
+    <div class="navbar navbar-fixed-top">
+      <div class="navbar-inner">
+        <div class="container">
+          <span class="brand">Contactos <span id='version'></span></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+        <div class="span12" style="max-height:250px; overflow:auto">
+           <table id="contacts-table" class="table table-striped">
+           <thead>
+            <tr>
+                <th id="column-name" class='sortable' name='contact-name'>Nombre</th>
+                <th id="column-mail" class='sortable' name='contact-mail'>Mail</th>
+                <th id="column-context" class='sortable' name='contact-context'>Contexto</th>
+                <th id="column-type" class='sortable' name='contact-type'>Tipo</th>
+                <th id="column-actions">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+           </table>
+        </div>
+      </div>
+      <div>
+        <button type="button" class="btn" onclick="new_contact()">Nuevo Contacto</button>
+      </div>
+      <br/>
+      <div class="contact-info">
+        <form id="contact-form" class="well" action="" onsubmit="save_contact(); return false;" style="display:none">
+        <input type="hidden" id="contact-id"/>
+        <div id="field-name" class="control-group">
+            <label>Nombre</label>
+            <input type="text" class="span3" id="contact-name">
+        </div>
+        <div id="field-mail" class="control-group">
+            <label>Mail</label>
+            <input type="text" class="span3" id="contact-mail">
+        </div>
+        <div id="field-context" class="control-group">
+            <label>Contexto</label>
+            <input type="text" class="span3" id="contact-context">
+        </div>
+        <div id="field-type" class="control-group">
+            <label>Tipo</label>
+            <input type="text" class="span3" id="contact-type">
+        </div>
+        <div class="form-actions" style="text-align:right">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <button type="reset" class="btn" onclick="cancel_contact()">Cancelar</button>
+          </div>
+      </form>
+      </div>
+
+    </div> <!-- /container -->
+
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="js/jquery-1.7.min.js"></script>
+    <script src="js/jquery.tmpl.min.js"></script>
+    <script src="js/table_sorter.js"></script>
+    <script src="js/contactos.js"></script>
+    <script src="js/regressions.js"></script>
+
+</body></html>
