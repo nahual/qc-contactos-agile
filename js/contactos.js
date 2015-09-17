@@ -5,7 +5,7 @@ var CONTACT_ROWS = {
     "mail": "<td class='contact-mail sortable' name='contact-mail'>${mail}</td>",
     "context": "<td class='contact-context sortable' name='contact-context'>${context}</td>",
     "type": "<td class='contact-type sortable' name='contact-type'>${type}</td>",
-    "actions": "<td><i class='icon-pencil' onclick='edit_contact(this)'></i> / <i class='icon-remove' onclick='remove_contact(this);'></i></td>",
+    "actions": "<td><span class='glyphicon glyphicon-pencil' onclick='edit_contact(this)'></span> / <span class='glyphicon glyphicon-remove' onclick='remove_contact(this);'></span></td>",
     "end": "</tr>"
 }
 var CURRENT_ID = 0;
@@ -38,7 +38,7 @@ function get_new_id() {
 
 function save_contact() {
     var form = $("#contact-form");
-    $(".control-group", form).each(function() {
+    $(".form-control", form).each(function() {
         cleanup_errors(this);
     });
     if (!validate_form(form)) {
@@ -118,8 +118,8 @@ function cleanup_form(form) {
 
 function validate_field(field, validator, error_message) {
     if (!validator(field)) {
-        field.parent().addClass("error");
-        $("<span class='help-inline'>"+error_message+"</span>").appendTo(field.parent());
+        field.parent().parent().addClass("has-error");
+        $("<span class='help-block'>"+error_message+"</span>").appendTo(field.parent());
         return false;
     }
     return true;
@@ -174,8 +174,8 @@ function validate_form(form) {
 }
 
 function cleanup_errors(input) {
-    $(".help-inline", input).remove();
-    $(input).removeClass("error");
+    $(".help-block", $(input).parent()).remove();
+    $(input).parent().parent().removeClass("has-error");
 }
 
 function new_contact() {
@@ -217,8 +217,32 @@ $(document).ready(function() {
         });
     }
     cleanup_form($('#contact-form'));
-    $(".control-group").change(function() {
+    cleanup_form($('#filters-form'));
+    $(".form-control").change(function() {
         cleanup_errors(this);
+    });
+    $("#filter").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("tr", "#contacts-table tbody").each(function() {
+            var name = $(".contact-name", this).text().toLowerCase();
+            var context = $(".contact-context", this).text().toLowerCase();
+            if (name.indexOf(value) != -1 || context.indexOf(value) != -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
+    });
+    $("#show-only").on("keyup", function() {
+        var value = $(this).val().toLowerCase();
+        $("tr", "#contacts-table tbody").each(function() {
+            var type = $(".contact-type", this).text().toLowerCase();
+            if (type.indexOf(value) != -1) {
+                $(this).show();
+            } else {
+                $(this).hide();
+            }
+        });
     });
     update_table_status();
     update_current_sort({'field':'contact-name','direction':'asc'});

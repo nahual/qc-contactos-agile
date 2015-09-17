@@ -12,36 +12,36 @@
     <!-- Le styles -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <style type="text/css">
-      body {
-        padding-top: 60px;
-        padding-bottom: 40px;
-      }
       #contacts-table tbody.empty:after {
         content: "No hay contactos guardados";
       }
-      
       a.active_sort {
         color: red;
       }
       #version {
-        font-size:0.8em;
         color: gray;
       }
     </style>
-    <link href="css/bootstrap-responsive.min.css" rel="stylesheet">
   </head>
-
   <body>
-    <div class="navbar navbar-fixed-top">
-      <div class="navbar-inner">
-        <div class="container">
-          <span class="brand">Contactos <span id='version'></span></span>
-        </div>
-      </div>
+    <div class="page-header">
+      <h1>Contactos <small id='version'></small></h1>
     </div>
 
     <div class="container">
       <div class="row">
+        <div id="filters-area">
+          <form id="filters-form" class="form-inline well">
+            <div class="form-group">
+              <label for="filter">Buscar</label>
+              <input type="text" class="form-control" id="filter" placeholder="Nombre o contexto">
+            </div>
+            <div class="form-group">
+              <label for="show-only">Tipo</label>
+              <input type="text" class="form-control" id="show-only" placeholder="">
+            </div>
+          </form>
+        </div>
         <div class="span12" style="max-height:250px; overflow:auto">
            <table id="contacts-table" class="table table-striped">
            <thead>
@@ -59,27 +59,35 @@
         </div>
       </div>
       <div>
-        <button type="button" class="btn" onclick="new_contact()">Nuevo Contacto</button>
+        <button type="button" class="btn btn-primary" onclick="new_contact()">Nuevo Contacto</button>
       </div>
       <br/>
       <div class="contact-info">
-        <form id="contact-form" class="well" action="" onsubmit="save_contact(); return false;" style="display:none">
+        <form id="contact-form" class="well form-horizontal" action="" onsubmit="save_contact(); return false;" style="display:none">
         <input type="hidden" id="contact-id"/>
-        <div id="field-name" class="control-group">
-            <label>Nombre</label>
-            <input type="text" class="span3" id="contact-name">
+        <div id="field-name" class="form-group">
+            <label for="contact-name" class="col-sm-1 control-label">Nombre</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="contact-name">
+            </div>
         </div>
-        <div id="field-mail" class="control-group">
-            <label>Mail</label>
-            <input type="text" class="span3" id="contact-mail">
+        <div id="field-mail" class="form-group">
+            <label for="contact-mail" class="col-sm-1 control-label">Mail</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="contact-mail">
+            </div>
         </div>
-        <div id="field-context" class="control-group">
-            <label>Contexto</label>
-            <input type="text" class="span3" id="contact-context">
+        <div id="field-context" class="form-group">
+            <label for="contact-context" class="col-sm-1 control-label">Contexto</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="contact-context">
+            </div>
         </div>
-        <div id="field-type" class="control-group">
-            <label>Tipo</label>
-            <input type="text" class="span3" id="contact-type">
+        <div id="field-type" class="form-group">
+            <label for="contact-type" class="col-sm-1 control-label">Tipo</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" id="contact-type">
+            </div>
         </div>
         <div class="form-actions" style="text-align:right">
             <button type="submit" class="btn btn-primary">Guardar</button>

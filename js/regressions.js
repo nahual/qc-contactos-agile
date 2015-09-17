@@ -1,3 +1,7 @@
+function hide_filters() {
+    $("#filters-area").remove();
+}
+
 function hide_sorting(columns) {
     var selector = "";
     if (columns) {
@@ -18,7 +22,7 @@ function hide_all_actions(show_context) {
 }
 
 function hide_edit_action(show_context) {
-    CONTACT_ROWS["actions"] = "<td><i class='icon-remove' onclick='remove_contact(this);'></i></td>";
+    CONTACT_ROWS["actions"] = "<td><span class='glyphicon glyphicon-remove' onclick='remove_contact(this);'></span></td>";
 }
 
 function remove_context_and_type_from_create() {
