@@ -233,16 +233,22 @@ $(document).ready(function() {
             }
         });
     });
-    $("#show-only").on("keyup", function() {
+    $("#show-only").change(function() {
         var value = $(this).val().toLowerCase();
-        $("tr", "#contacts-table tbody").each(function() {
-            var type = $(".contact-type", this).text().toLowerCase();
-            if (type.indexOf(value) != -1) {
+        if (value == 'todos') {
+            $("tr", "#contacts-table tbody").each(function() {
                 $(this).show();
-            } else {
-                $(this).hide();
-            }
-        });
+            });
+        } else {
+            $("tr", "#contacts-table tbody").each(function() {
+                var type = $(".contact-type", this).text().toLowerCase();
+                if (type.indexOf(value) != -1) {
+                    $(this).show();
+                } else {
+                    $(this).hide();
+                }
+            });
+        }
     });
     update_table_status();
     update_current_sort({'field':'contact-name','direction':'asc'});
