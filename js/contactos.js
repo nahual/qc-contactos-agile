@@ -188,7 +188,9 @@ function new_contact() {
 }
 
 function cancel_contact() {
-    $("#contact-form").fadeOut();
+    if (confirm("¿Seguro no desea guardar el contacto?")) {
+        $("#contact-form").fadeOut();
+    }
 }
 
 function update_table_status() {
