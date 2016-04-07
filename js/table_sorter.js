@@ -20,14 +20,6 @@ function update_current_sort(sort_data) {
     update_sort_links();
 }
 
-function sort_keys(keys, order) {
-    keys = keys.sort();
-    if (order == 'desc') {
-        keys = keys.reverse();
-    }
-    return keys;
-}
-
 function sort_table(sort_data) {
     update_current_sort({'field':sort_data.attr('name'),'direction':sort_data.attr('order')});
     var table = $(sort_data).parents("table");
@@ -36,16 +28,19 @@ function sort_table(sort_data) {
     var table_content = {};
     var keys = [];
     var selector = 'td[name='+sort_data.attr('name')+']';
-    $("tbody tr", table).each(function() {
-        var key = converter($(selector, this).text());
-        table_content[key] = this;
-        keys.push(key);
+    
+    var content = $("tbody tr", table);
+    var modifier = sort_data.attr('order') === 'desc' ? -1 : 1;
+    content.sort(function(a, b) {
+        a = converter($(selector, a).text());
+        b = converter($(selector, b).text())
+        return a.localeCompare(b)*modifier;
     });
-    keys = sort_keys(keys, sort_data.attr('order'));
 
     $('tbody', table).empty();
-    $(keys).each(function(){
-        $(table_content[this]).appendTo(table);
+
+    content.each(function() {
+        $(this).appendTo(table);
     });
     return false;
 }
